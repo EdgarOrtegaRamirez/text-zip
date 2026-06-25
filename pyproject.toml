@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "text-zip"
+version = "0.1.0"
+description = "Lightweight token compression CLI and library for AI agents"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Edgar Ortega Ramirez"},
+]
+keywords = ["compression", "tokens", "ai", "llm", "context", "optimization"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+dependencies = [
+    "click>=8.1.7,<9.0.0",
+    "toml>=0.10.2,<1.0.0",
+]
+
+[project.optional-dependencies]
+mcp = [
+    "mcp>=1.0.0,<2.0.0",
+]
+
+[project.scripts]
+textzip = "textzip.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/EdgarOrtegaRamirez/text-zip"
+Repository = "https://github.com/EdgarOrtegaRamirez/text-zip"
+"Bug Tracker" = "https://github.com/EdgarOrtegaRamirez/text-zip/issues"
+
+[tool.setuptools.packages.find]
+include = ["textzip*"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "C4", "SIM"]
+ignore = ["F401", "E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
