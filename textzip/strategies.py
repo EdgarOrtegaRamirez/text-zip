@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
-import re
 import logging
+import re
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import List
 
 logger = logging.getLogger(__name__)
 
@@ -99,7 +98,7 @@ class Deduplicator(CompressionStrategy):
         original_tokens = Tokenizer.count_tokens(text)
         lines = text.split("\n")
         seen: set[str] = set()
-        unique_lines: List[str] = []
+        unique_lines: list[str] = []
         for line in lines:
             stripped = line.strip()
             if stripped and stripped not in seen:
@@ -132,7 +131,7 @@ class CodeFormatter(CompressionStrategy):
     def compress(self, text: str) -> CompressionResult:
         original_tokens = Tokenizer.count_tokens(text)
         lines = text.split("\n")
-        compressed_lines: List[str] = []
+        compressed_lines: list[str] = []
         in_block_comment = False
 
         for line in lines:
@@ -186,7 +185,7 @@ class KeyExtractor(CompressionStrategy):
     def compress(self, text: str) -> CompressionResult:
         original_tokens = Tokenizer.count_tokens(text)
         lines = text.split("\n")
-        extracted: List[str] = []
+        extracted: list[str] = []
 
         for line in lines:
             stripped = line.strip()
@@ -199,11 +198,10 @@ class KeyExtractor(CompressionStrategy):
                 continue
 
             # First sentence of paragraphs
-            if not extracted or (extracted and extracted[-1] != "___NEW_PARA___"):
-                if len(stripped) > 20:  # Only meaningful sentences
-                    extracted.append(stripped)
-                    extracted.append("___NEW_PARA___")
-                    continue
+            if (not extracted or extracted[-1] != "___NEW_PARA___") and len(stripped) > 20:  # Only meaningful sentences
+                extracted.append(stripped)
+                extracted.append("___NEW_PARA___")
+                continue
 
             # Key-value pairs
             if re.match(r"^[A-Za-z_][A-Za-z0-9_]*\s*[:=]", stripped):
@@ -233,7 +231,7 @@ class CombinedCompressor:
 
     def __init__(
         self,
-        strategies: List[CompressionStrategy] | None = None,
+        strategies: list[CompressionStrategy] | None = None,
     ) -> None:
         if strategies is None:
             # Default pipeline: whitespace -> dedup -> key extraction

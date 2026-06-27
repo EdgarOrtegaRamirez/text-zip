@@ -80,12 +80,12 @@ def handle_compress(text: str, strategy: str = "combined") -> dict[str, Any]:
 def handle_analyze(text: str) -> dict[str, Any]:
     """Handle the analyze tool call."""
     from textzip.strategies import (
-        CombinedCompressor,
-        WhitespaceNormalizer,
-        Deduplicator,
         CodeFormatter,
+        CombinedCompressor,
+        Deduplicator,
         KeyExtractor,
         Tokenizer,
+        WhitespaceNormalizer,
     )
 
     original_tokens = Tokenizer.count_tokens(text)
@@ -117,14 +117,14 @@ def handle_analyze(text: str) -> dict[str, Any]:
     }
 
 
-def _get_strategy(strategy_name: str) -> CombinedCompressor:
+def _get_strategy(strategy_name: str) -> Any:  # Returns CombinedCompressor
     """Get a compressor instance based on strategy name."""
     from textzip.strategies import (
-        CombinedCompressor,
-        WhitespaceNormalizer,
-        Deduplicator,
         CodeFormatter,
+        CombinedCompressor,
+        Deduplicator,
         KeyExtractor,
+        WhitespaceNormalizer,
     )
 
     strategy_map = {

@@ -2,22 +2,22 @@
 
 from __future__ import annotations
 
-import sys
-import logging
 import json
+import logging
+import sys
 from pathlib import Path
 
 import click
 
 from textzip import __version__
 from textzip.strategies import (
-    CombinedCompressor,
-    WhitespaceNormalizer,
-    Deduplicator,
     CodeFormatter,
+    CombinedCompressor,
+    CompressionResult,
+    Deduplicator,
     KeyExtractor,
     Tokenizer,
-    CompressionResult,
+    WhitespaceNormalizer,
 )
 
 logger = logging.getLogger("textzip")
