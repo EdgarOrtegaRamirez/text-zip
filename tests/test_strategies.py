@@ -1,14 +1,15 @@
 """Tests for compression strategies."""
 
 import pytest
+
 from textzip.strategies import (
-    Tokenizer,
-    CompressionResult,
-    WhitespaceNormalizer,
-    Deduplicator,
     CodeFormatter,
-    KeyExtractor,
     CombinedCompressor,
+    CompressionResult,
+    Deduplicator,
+    KeyExtractor,
+    Tokenizer,
+    WhitespaceNormalizer,
 )
 
 
@@ -45,7 +46,7 @@ class TestWhitespaceNormalizer:
     def test_collapse_spaces(self, strategy):
         text = "Hello    world    test"
         result = strategy.compress(text)
-        assert "Hello world test" == result.compressed_text
+        assert result.compressed_text == "Hello world test"
 
     def test_collapse_newlines(self, strategy):
         text = "Line 1\n\n\n\nLine 2"

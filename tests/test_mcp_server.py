@@ -1,10 +1,11 @@
 """Tests for the MCP server module."""
 
 import json
+
 from textzip.mcp_server import (
     create_textzip_tools,
-    handle_compress,
     handle_analyze,
+    handle_compress,
     handle_mcp_tool_call,
 )
 
@@ -92,7 +93,7 @@ class TestHandleAnalyze:
     def test_strategy_has_metrics(self):
         text = "Hello world"
         result = handle_analyze(text)
-        for name, data in result["strategies"].items():
+        for _name, data in result["strategies"].items():
             assert "tokens" in data
             assert "savings_pct" in data
 
